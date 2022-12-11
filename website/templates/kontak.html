@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+ <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="{% url 'beranda' %}">Beranda</a></li>
+                            <li class="active">Hubungi Kami</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->     
+            <!-- Begin Contact Main Page Area -->
+            <div class="contact-main-page mt-60 mb-40 mb-md-40 mb-sm-40 mb-xs-40">
+               
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 offset-lg-1 col-md-12 order-1 order-lg-2">
+                            <div class="contact-page-side-content">
+                                <h3 class="contact-page-title">Hubungi Kami</h3>
+                                <p class="contact-page-message mb-25">Menu ini untuk Kritik dan saran yang positif atau ada terkait layanan yang kurang memuaskan</p>
+                                <div class="single-contact-block">
+                                    <h4><i class="fa fa-fax"></i> Alamat Kami</h4>
+                                    <p>{{statis.alamat_kami}}</p>
+                                </div>
+                                <div class="single-contact-block">
+                                    <h4><i class="fa fa-phone"></i> Phone</h4>
+                                    <p>{{statis.telpon}}</p>
+                                  
+                                </div>
+                                <div class="single-contact-block last-child">
+                                    <h4><i class="fa fa-envelope-o"></i> Email</h4>
+                                    <p>{{statis.email}}</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+                            <div class="contact-form-content pt-sm-55 pt-xs-55">
+                            {% if messages %}
+                                    <ul>
+                                    {% for message in messages  %}
+                                        <li class="{{message.tags}}">{{ message }}</li>
+                                       
+                                    {% endfor %}
+                                    </ul> 
+                                {% endif %}
+                                <h3 class="contact-page-title">Kirim Pesan Anda Disini</h3>
+                                <div class="contact-form">
+                                    <form action="{% url 'kontak' %}" method="post">
+                                    {% csrf_token %}
+                                        <div class="form-group">
+                                            <label>Nama <span class="required">*</span></label>
+                                            <input type="text" name="nama" placeholder="Isi nama..." value="{{data.nama}}" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telp/Whatsapp <span class="required">*</span></label>
+                                            <input type="number" name="whatsapp" placeholder="Isi Telp/Whatsapp..." value="{{data.whatsapp}}" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email </label>
+                                            <input type="email" name="email" placeholder="Isi Email..." value="{{data.email}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subject <span class="required">*</span></label>
+                                            <input type="text" name="subject" placeholder="Isi TSubject..." value="{{data.subject}}">
+                                        </div>
+                                        <div class="form-group mb-30">
+                                            <label>Pesan <span class="required">*</span></label>
+                                            <textarea name="pesan">{{data.pesan}}</textarea>
+                                            <div class="g-recaptcha" data-sitekey="6Ld1tWwbAAAAAGchW57BbWhvwTbF9NGzlzvtlMXf"></div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                              
+                                        </div>
+                                        <div class="form-group">
+                                          
+                                             <input type="submit" class="li-btn-3" value="Kirim">
+                                        </div>
+                                    </form>
+                                </div>
+                                <p class="form-messege"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock content %}

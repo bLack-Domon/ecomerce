@@ -1,0 +1,46 @@
+
+                <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Begin Header Bottom Menu Area -->
+                                   <div class="hb-menu">
+                                    <nav>
+                                        <ul>
+                                           
+                                            <li class="megamenu-holder"><a href="{% url 'beranda' %}">Beranda</a> </li>
+                                            <li class="dropdown-holder"><a href="{% url 'profil' %}">Profil</a> </li>
+                                             <li class="dropdown-holder"><a href="#">Produk</a>
+                                                <ul class="hb-dropdown">
+                                                    {% for kt in kategori %}
+                                                        <li><a href="{% url 'kategori' kt.slug %}">{{kt.nama}}</a></li>
+                                                    {% empty %}
+                                                        <div class="alert alert-danger">Kategori Kosong</div>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                </ul>
+                                            </li>
+                                            <li class="megamenu-static-holder"><a href="{% url 'cart_detail' %}">Pemesanan</a></li>
+                                            <li><a href="{% url 'kontak' %}">Hubungi Kami</a></li>
+                                          
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Header Bottom Menu Area End Here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Bottom Area End Here -->
+                <!-- Header Bottom Area End Here -->
+                <!-- Begin Mobile Menu Area -->
+                <div class="mobile-menu-area d-lg-none d-xl-none col-12">
+                    <div class="container"> 
+                        <div class="row">
+                            <div class="mobile-menu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               

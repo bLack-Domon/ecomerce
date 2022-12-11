@@ -1,0 +1,239 @@
+{% extends "baseproduk.html" %}
+{% load static %}
+
+{% load humanize %}
+{% block content %}
+            <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                          <li><a href="{% url 'beranda' %}">Beranda</a></li>
+                            <li class="active">Nama Produk :  {{produk.nama_produk}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <!-- Li's Breadcrumb Area End Here -->
+              <div class="content-wraper">
+                <div class="container">
+                    <div class="row single-product-area">
+                        <div class="col-lg-5 col-md-6">
+                           <!-- Product Details Left -->
+                            <div class="product-details-left">
+                                <div class="product-details-images slider-navigation-1">
+
+                                    <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+
+                                    {% if produk.gambar_satu %}
+                                     <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar_satu.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar_satu.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if produk.gambar_dua %}
+                                     <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar_dua.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar_dua.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if produk.gambar_tiga %}
+                                     <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar_tiga.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar_tiga.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if produk.gambar_empat %}
+                                     <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar_empat.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar_empat.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if produk.gambar_lima %}
+                                     <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="{{produk.gambar_lima.url}}" data-gall="myGallery">
+                                            <img src="{{produk.gambar_lima.url}}" alt="{{produk.nama_produk}}">
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+  
+                                </div>
+                                <br/>
+                                <div class="product-details-thumbs slider-thumbs-1 mr-4"  >      
+
+
+                                    <div class="sm-image"><img src="{{produk.gambar.url}}" alt="{{produk.nama_produk}}"></div>
+                                     {% if produk.gambar_satu %}
+                                           <div class="sm-image"><img src="{{produk.gambar_satu.url}}"alt="{{produk.nama_produk}}"></div>
+                                    {% endif %}
+
+                                     {% if produk.gambar_dua %}
+                                           <div class="sm-image"><img src="{{produk.gambar_dua.url}}" alt="{{produk.nama_produk}}"></div>
+                                    {% endif %}
+
+                                     {% if produk.gambar_tiga %}
+                                           <div class="sm-image"><img src="{{produk.gambar_tiga.url}}" alt="{{produk.nama_produk}}"></div>
+                                    {% endif %}
+
+                                     {% if produk.gambar_empat %}
+                                           <div class="sm-image"><img src="{{produk.gambar_empat.url}}" alt="{{produk.nama_produk}}"></div>
+                                    {% endif %}
+
+                                     {% if produk.gambar_lima %}
+                                           <div class="sm-image"><img src="{{produk.gambar_lima.url}}" aalt="{{produk.nama_produk}}"></div>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                            <!--// Product Details Left -->
+                        </div>
+
+                        <div class="col-lg-7 col-md-6">
+                            <div class="product-details-view-content pt-0">
+                                <div class="product-info">
+                                    <h2>{{produk.nama_produk}}</h2>
+                                        {% if produk.diskon == 0 %}
+                                                <div class="price-box pt-20">
+                                                    <span class="new-price new-price-2">Rp. {{produk.harga|intcomma}}</span>
+                                                </div>
+                                        {% else %}
+                                                <span class="old-price"><s>Rp. {{produk.harga|intcomma}}</s></span>
+                                                Diskon <span class="discount-percentage">{{produk.diskon}}%</span>
+                                                <div class="price-box pt-20">
+                                                    <span class="new-price new-price-2">Rp. {{produk.setela_diskon|intcomma}}</span>
+                                                </div>
+                                        {% endif %}
+                                      
+
+                                    <div class="product-desc">
+                                        <div class="text-justify">
+                                            <span>{{produk.keterangan|safe}} </span>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="single-add-to-cart"> 
+                                    <form action="{% url "cart_add" produk.id %}" method="post" class="cart-quantity">
+                                      {% csrf_token %}
+                                          <div class="quantity">
+                                                <label>Quantity</label>
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </div> 
+                                            
+                                               
+                                                {{ cart_product_form }}
+                                               
+                                            <button class="add-to-cart" type="submit">Tambah cart</button>
+                                        </form>
+                                    </div>
+                                    <div class="product-additional-info pt-25">
+                                        <a class="wishlist-btn" href="#" 
+                                                                <li><a class="links-details" href="https://api.whatsapp.com/send?phone={{produk.no_whatsup}}&text=Saya%20ingin%20pemesan%20product%20{{produk.nama_produk}}%20apakah%20tersedia%20?%20" target="_blank"><b><i class="fa fa-whatsapp"></i>Beli whatsapp</b></a>
+                                        <div class="product-social-sharing pt-25">
+                                            <ul>
+                                                <li class="facebook"><a href="http://www.facebook.com/sharer.php?u=https://{{domain}}/{{produk.kategori.slug}}/{{produk.slug}}" target="_blank">
+                                                    <i class="fa fa-facebook"></i>Facebook</a></li>
+                                                <li class="twitter"><a href="https://twitter.com/share?url=https://{{domain}}/{{produk.kategori.slug}}/{{produk.slug}}" target="_blank">
+                                                    <i class="fa fa-twitter"></i>Twitter</a></li>
+                                                <li class="telegram"><a href="https://telegram.me/share/url?url=https://{{domain}}/{{produk.kategori.slug}}/{{produk.slug}}"  target="_blank">
+                                                    <i class="fa fa-telegram"></i>Telegram</a></li>
+                                                <li class="whatsapp"><a href="whatsapp://send?text=https://{{domain}}/{{produk.kategori.slug}}/{{produk.slug}}"  target="_blank">
+                                                    <i class="fa fa-whatsapp"></i>Whatsapp</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+ <section class="product-area li-laptop-product pt-30 pb-50">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Li's Section Area -->
+                        <div class="col-lg-12">
+                            <div class="li-section-title">
+                                <h2>
+                                    <span>{{jml}} Produk lainnya dengan sama Kategori {{produk.kategori.nama}}:</span>
+                                </h2>
+                            </div>
+                            <div class="row">
+                                <div class="product-active owl-carousel">
+
+                                    {% comment %} Awal {% endcomment %}
+                                                    {% for rel in related  %}
+                                             <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product-wrap">
+                                                    <div class="product-image">
+                                                        <a href="{% url 'product' rel.kategori.slug rel.slug  %}">
+                                                            <img src="{{rel.gambar.url}}" alt="{{rel.nama_produk}}">
+                                                        </a>
+                                                        {% if rel.keterangan_barang == "Baru" %}
+                                                            <span class="sticker">Baru</span>
+
+                                                            {% endif %}
+                                                    </div>
+                                                    <div class="product_desc">
+                                                        <div class="product_desc_info">
+                                                            <h4><a class="product_name" href="{% url 'product' rel.kategori.slug rel.slug  %}">{{tren.nama_produk}}</a></h4>
+                                                            <div class="price-box">
+                                                                {% if rel.diskon == 0 %}
+                                                                    <span class="new-price new-price-2">Rp. {{rel.harga|intcomma}}</span>
+                                                                
+                                                                {% else %}
+                                                                    <span class="new-price new-price-2">Rp. {{rel.setela_diskon|intcomma}}</span>
+                                                                    <span class="old-price">Rp.  {{rel.harga|intcomma}}</span>
+                                                                    <span class="discount-percentage">{{rel.diskon}}%</span>
+                                                                {% endif %}
+                                                      
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active"><a href="#">Tambah Cart</a></li>
+                                                                <li><a class="links-details" href="https://api.whatsapp.com/send?phone={{rel.no_whatsup}}&text=Saya%20ingin%20pemesan%20product%20{{rel.nama_produk}}%20apakah%20tersedia%20?%20" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter{{rel.id}}"><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div>
+                                            {% empty %}
+                                            <div class="col-lg-12">
+                                              <div class="alert alert-danger">Produk Kosong</div>
+                                                
+                                            </div>
+                                            {% endfor %}
+                                            
+                                     {% comment %} Awal {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Li's Section Area End Here -->
+                    </div>
+                </div>
+            </section>
+            
+           
+{% endblock content %}

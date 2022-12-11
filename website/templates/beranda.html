@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+            <!-- Begin Slider With Category Menu Area -->
+            <div class="slider-with-banner">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Category Menu Area -->
+                        <div class="col-lg-3">
+                            <!--Category Menu Start-->
+                            <div class="category-menu">
+                                <div class="category-heading">
+                                    <h2 class="categories-toggle"><span>Kategori</span></h2>
+                                </div>
+                                <div id="cate-toggle" class="category-menu-list">
+                                    <ul>
+                                        {% for ktg in jumlahkategori %}
+                                        <li><a href="{% url 'kategori' ktg.slug %}">{{ktg.nama}} ({{ktg.product_count}})</a></li>
+                                        {% empty %}
+                                        
+                                        {% endfor %}
+                                        
+                                       
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Category Menu End-->
+                        </div>
+                        <!-- Category Menu Area End Here -->
+                        <!-- Begin Slider Area -->
+                        <div class="col-lg-9">
+                            <div class="slider-area pt-sm-30 pt-xs-30">
+                                <div class="slider-active owl-carousel">
+                                   
+                                    {% comment %} Slide {% endcomment %}
+                                    {% for slider in slide %}
+                                    <div class="single-slide align-center-left animation-style-01 bg"
+                                     style="background-image: url({{slider.gambar_slide.url}} );">
+                                        <div class="slider-progress"></div>
+                                        <div class="slider-content">
+                                            <h5>{{slider.teks_awal|safe}}</h5>
+                                            <h2>{{slider.teks_dua|safe}}</h2>
+                                            <h3>{{slider.teks_tiga|safe}}</h3>
+                                            
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <div>
+                                       <div class="alert alert-danger"></div>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                   
+                                      {% comment %} Slide {% endcomment %}
+                                   
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slider Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Slider With Category Menu Area End Here -->
+      
+           <br/>
+           {% comment %} Produk Kategori {% endcomment %}
+            {% for kt in  kategori %}
+            <section class="product-area li-laptop-product li-laptop-product-2 pb-45">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Li's Section Area -->
+                        <div class="col-lg-12">
+                            <div class="li-section-title">
+                                <h2>
+                                    <span>{{kt.nama}}</span>
+                                </h2>
+                            </div>
+                            <div class="li-banner-2 pt-15">
+                                <div class="row">
+                                    <!-- Begin Single Banner Area -->
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="single-banner">
+                                            <a href="#">
+                                            {% if kt.banner_satu %}
+                                                <img src="{{kt.banner_satu.url}}" alt="{{kt.nama}}">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/kosong/kosongbanner.png' %}" alt="{{kt.nama}}">
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Single Banner Area End Here -->
+                                    <!-- Begin Single Banner Area -->
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="single-banner">
+                                            <a href="#">
+                                            {% if kt.banner_dua %}
+                                                <img src="{{kt.banner_dua.url}}" alt="{{kt.nama}}">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/kosong/kosongbanner.png' %}" alt="{{kt.nama}}">
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Single Banner Area End Here -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="product-active owl-carousel">
+                                   
+                                   {% for pro in kt.get_products %}
+                                    <div class="col-lg-12">
+
+
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product-wrap">
+                                            <div class="product-image">
+                                                <a href="{% url 'product' pro.kategori.slug pro.slug  %}">
+                                                    <img src="{{pro.gambar.url}}" alt="{{pro.nama_produk}}">
+                                                </a>
+                                                {% if pro.keterangan_barang == "Baru" %}
+                                                 <span class="sticker">Baru</span>
+
+                                                {% endif %}
+                                               
+                                            </div>
+                                            <div class="product_desc">
+                                                <div class="product_desc_info">
+                                                    <div class="product-review">
+                                                    </div>
+                                                    <h4><a class="product_name" href="{% url 'product' pro.kategori.slug pro.slug  %}">{{pro.nama_produk}}</a></h4>
+                                                    <div class="price-box">
+                                                    {% if pro.diskon == 0 %}
+                                                        <span class="new-price new-price-2">Rp. {{pro.harga|intcomma}} </span>
+                                                       
+                                                    {% else %}
+                                                        <span class="new-price new-price-2">Rp. {{pro.setela_diskon|intcomma}}</span>
+                                                        <span class="old-price">Rp.  {{pro.harga|intcomma}}</span>
+                                                        <span class="discount-percentage">{{pro.diskon}}%</span>
+                                                    {% endif %}
+                                                      
+                                                    </div>
+                                                </div>
+                                                <div class="add-actions">
+                                                    <ul class="add-actions-link">
+                                                    
+                                                                
+                                                            
+                                                                 <li class="add-cart active"><a href="{% url 'product' pro.kategori.slug pro.slug  %}">Detail</a></li>
+                                                        
+                                                        <li><a class="links-details" href="https://api.whatsapp.com/send?phone={{pro.no_whatsup}}&text=Saya%20ingin%20pemesan%20product%20{{pro.nama_produk}}%20apakah%20tersedia%20?%20" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                                                        <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter{{pro.id}}"><i class="fa fa-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+
+                                       
+
+                                    </div>
+                                   {% empty %}
+                                  <div class="alert alert-danger mr-4">Data Produk Kategori {{kt.nama}} Kosong </div>
+                                   {% endfor %}
+                                    
+                                   
+
+
+                              
+                            </div>
+                        </div>
+                        <!-- Li's Section Area End Here -->
+                    </div>
+                </div>
+            </section>
+            {% empty %}
+              <div class="alert alert-danger mr-4">Data Kategori Kosong </div>
+            {% endfor %}
+            {% comment %} Produk Kategori {% endcomment %}
+            
+            
+
+             {% comment %} Trending {% endcomment %}
+            <!-- Begin Li's Trending Product | Home V2 Area -->
+            <section class="product-area li-trending-product li-trending-product-2 pt-60 pb-45">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Li's Tab Menu Area -->
+                        <div class="col-lg-12">
+                            <div class="li-product-tab li-trending-product-tab">
+                                <h2>
+                                    <span>Trending Produk</span>
+                                </h2>
+                                <ul class="nav li-product-menu li-trending-product-menu">
+                                   <li></li>
+                                </ul>               
+                            </div>
+                            <!-- Begin Li's Tab Menu Content Area -->
+                            <div class="tab-content li-tab-content li-trending-product-content">
+                                <div id="home1" class="tab-pane show fade in active">
+                                    <div class="row">
+                                        <div class="product-active owl-carousel">
+                                            {% comment %} Awal Trending {% endcomment %}
+                                            {% for tren in trending  %}
+                                             <div class="col-lg-12">
+                                                <!-- single-product-wrap start -->
+                                                <div class="single-product-wrap">
+                                                    <div class="product-image">
+                                                        <a href="{% url 'product' tren.kategori.slug tren.slug  %}">
+                                                            <img src="{{tren.gambar.url}}" alt="{{tren.nama_produk}}">
+                                                        </a>
+                                                        {% if tren.keterangan_barang == "Baru" %}
+                                                            <span class="sticker">Baru</span>
+
+                                                            {% endif %}
+                                                    </div>
+                                                    <div class="product_desc">
+                                                        <div class="product_desc_info">
+                                                            <h4><a class="product_name" href="{% url 'product' tren.kategori.slug tren.slug  %}">{{tren.nama_produk}}</a></h4>
+                                                            <div class="price-box">
+                                                                {% if tren.diskon == 0 %}
+                                                                    <span class="new-price new-price-2">Rp. {{tren.harga|intcomma}}</span>
+                                                                
+                                                                {% else %}
+                                                                    <span class="new-price new-price-2">Rp. {{tren.setela_diskon|intcomma}}</span>
+                                                                    <span class="old-price">Rp.  {{tren.harga|intcomma}}</span>
+                                                                    <span class="discount-percentage">{{tren.diskon}}%</span>
+                                                                {% endif %}
+                                                      
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-actions">
+                                                            <ul class="add-actions-link">
+                                                              <li class="add-cart active"><a href="{% url 'product' tren.kategori.slug tren.slug  %}">Detail</a></li>
+                                                                <li><a class="links-details" href="https://api.whatsapp.com/send?phone={{tren.no_whatsup}}&text=Saya%20ingin%20pemesan%20product%20{{tren.nama_produk}}%20apakah%20tersedia%20?%20"><i class="fa fa-whatsapp"></i></a></li>
+                                                                <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter{{tren.id}}"><i class="fa fa-eye"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- single-product-wrap end -->
+                                            </div>
+                                            {% empty %}
+                                            <div class="col-lg-12">
+                                              <div class="alert alert-danger">Produk Kosong</div>
+                                                
+                                            </div>
+                                            {% endfor %}
+                                            
+
+                                           {% comment %} Akhir Trending {% endcomment %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!-- Tab Menu Content Area End Here -->
+                        </div>
+                        <!-- Tab Menu Area End Here -->
+                    </div>
+                </div>
+            </section>
+            <!-- Li's Trending Product | Home V2 Area End Here -->
+            {% comment %} Trending {% endcomment %}
+{% endblock content %}

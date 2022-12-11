@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load humanize %}
+{% block content %}
+          <!-- Begin Li's Breadcrumb Area -->
+            <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                               <li><a href="{% url 'beranda' %}">Beranda</a></li>
+                            <li class="active">Pemesanan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->
+            <!--Shopping Cart Area Strat-->
+            <div class="Shopping-cart-area pt-60 pb-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                           
+                                <div class="table-content table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="li-product-remove">hapus</th>
+                                                <th class="li-product-thumbnail">gambar</th>
+                                                <th class="cart-product-name">Produk</th>
+                                                <th class="li-product-price">Harga Produk</th>
+                                                <th class="li-product-quantity">Quantity</th>
+                                                <th class="li-product-subtotal">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in cart %}
+                                            {% with product=item.product  %}
+                                            <tr>
+                                                <td class="li-product-remove"><a href="{% url "cart_remove" product.id %}"><i class="fa fa-times"></i></a></td>
+                                                <td class="li-product-thumbnail"><a href="#"><img src="{{product.gambar.url}}" alt="{{product.nama_produk}}"></a></td>
+                                                <td class="li-product-name"><a href="#">{{product.nama_produk}}</a></td>
+                                                <td class="li-product-price"><span class="amount">Rp {{ item.price|intcomma }}</span></td>
+                                                <td class="quantity">
+                                                  <form action="{% url "cart_add" product.id %}" method="post">
+                                                    <label>Quantity</label>
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box" name="quantity"  value="{{item.quantity}}" type="text">
+                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                    </div>
+                                                    <br/>
+                                                        {% csrf_token %}
+                                                        {{ item.update_quantity_form.quantity }}
+                                                        {{ item.update_quantity_form.update }}
+                                                        <input type="submit" value="Update" class="btn btn-info">
+                                                    </form>
+                                                </td>
+                                                <td class="product-subtotal"><span class="amount">Rp. {{ item.total_price|intcomma }}</span></td>
+                                            </tr>
+                                        {% endwith %}
+                                        {% empty %}
+                                            <tr><th colspan="6"> Belum ada Pemesanan</th></tr>
+                                        {% endfor %}
+                                            
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                                  <div class="row">
+                                    <div class="col-12">
+                                        <div class="coupon-all">
+                                            <div class="cart-page-total">
+                                                 <a href="{% url 'beranda' %}"><i class="fa fa-angle-double-left"> Lanjut Belanja</i></a>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 ml-auto">
+                                        <div class="cart-page-total">
+                                            <h2>Total Cart</h2>
+                                            <ul>
+                                             
+                                                <li>Total <span>Rp. {{ cart.get_total_price|intcomma }}</span></li>
+                                            </ul>
+                                            <a href="{% url 'checkout' %}">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Shopping Cart Area End--         
+{% endblock content %}

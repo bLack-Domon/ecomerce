@@ -1,0 +1,522 @@
+{% load static %}
+{% load humanize %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- index28:48-->
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+         <title>
+         {% block title %}
+         {{judul}}
+         {% endblock title %} | Website e-Comerce Terpusat
+         </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/icon.png' %}">
+        <!-- Material Design Iconic Font-V2.2.0 -->
+        <link rel="stylesheet" href="{% static 'assets/css/material-design-iconic-font.min.css' %}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+        <!-- Font Awesome Stars-->
+        <link rel="stylesheet" href="{% static 'assets/css/fontawesome-stars.css' %}">
+        <!-- Meanmenu CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <!-- owl carousel CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <!-- Slick Carousel CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+        <!-- Jquery-ui CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/jquery-ui.min.css' %}">
+        <!-- Venobox CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/venobox.css' %}">
+        <!-- Nice Select CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+        <!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+        <!-- Bootstrap V4.1.3 Fremwork CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <!-- Helper CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/helper.css' %}">
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <!-- Modernizr js -->
+        <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+    </head>
+    <style>
+    ul {list-style: none;}
+    .alert-success, .alert-warning, .alert-danger, .alert-info{
+        background-repeat: no-repeat ;
+        background-position: 10px center;
+        height: 40px;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 22px;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-left: 50px;
+    
+}
+
+    .alert-danger {
+        background-color: #FFFBCC;
+        border: 1px solid #FFF35E;
+        color: #C69E00;
+        background-image: url({% static 'assets/images/menu/error.png' %});
+    }
+    .alert-success{
+        background-color: #EBF8D6;
+        border: 1px solid #A6DD88;
+        color: #539B2D;
+        background-image: url({% static 'assets/images/menu/check.png' %});
+ 
+}
+    </style>
+    <body>
+    <!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+        <!-- Begin Body Wrapper -->
+       <div class="body-wrapper">
+            <!-- Begin Header Area -->
+            <header>
+                <!-- Begin Header Top Area -->
+                <div class="header-top">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Begin Header Top Left Area -->
+                            <div class="col-lg-3 col-md-4">
+                                <div class="header-top-left">
+                                    <ul class="phone-wrap">
+                                    
+                                      <li><span>Telp Langsung:</span><a href="#">{{statis.telpon}}</a></li>
+                                   
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Header Top Left Area End Here -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Top Area End Here -->
+                <!-- Begin Header Middle Area -->
+                <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Begin Header Logo Area -->
+                            <div class="col-lg-3">
+                                <div class="logo pb-sm-30 pb-xs-30">
+                                    <a href="index.html">
+                                        <img src="{% static 'assets/images/menu/logo/gambar.png' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Header Logo Area End Here -->
+                            <!-- Begin Header Middle Right Area -->
+                            <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+                                <!-- Begin Header Middle Searchbox Area -->
+                                <form action="{% url 'cari' %}" class="hm-searchbox" method="GET">
+                                    <select class="nice-select select-search-category" name="kategori">
+                                        <option value="all">All</option>
+                                         {% for kt in kategori %}
+                                            <option value="{{kt.id}}">{{kt.nama}}</option>  
+                                        {% endfor %}                         
+                                                         
+                                     
+                                    <input type="text" name="kata" placeholder="Masukan kata produk ...">
+                                    <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                                <!-- Header Middle Searchbox Area End Here -->
+                                <!-- Begin Header Middle Right Area -->
+                                <div class="header-middle-right">
+                                    <ul class="hm-menu">
+                                        
+                                        <!-- Begin Header Mini Cart Area -->
+                                        <li class="hm-minicart">
+                                            <div class="hm-minicart-trigger">
+                                                {% with totail_items=keranjang|length %}
+                                                    {% if keranjang|length > 0 %}
+                                                    <span class="item-icon"></span>
+                                                    <span class="item-text">Rp. {{ keranjang.get_total_price |intcomma }}
+                                                    <span class="cart-item-count"> {{ totail_items }}</span>
+                                                     {% else %}
+                                                       <span class="item-icon"></span>
+                                                        <span class="item-text">Rp. 0
+                                                        <span class="cart-item-count"> 0 </span>
+                                                </span>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                            <span></span>
+                                            <div class="minicart">
+                                                <ul class="minicart-product-list">
+                                                   {% for item in keranjang %}
+                                                    {% with product=item.product  %}
+                                                    <li>
+                                                        <a href="" class="minicart-product-image">
+                                                            <img src="{{product.gambar.url}}" alt="{{product.nama_produk}}">
+                                                        </a>
+                                                        <div class="minicart-product-details">
+                                                            <h6><a href="#">{{product.nama_produk}}</a></h6>
+                                                            <span>Rp {{ item.price|intcomma }} x {{item.quantity}}</span>
+                                                            <br/>
+                                                            <span><b>Rp. {{ item.total_price|intcomma }}</b></span>
+                                                        </div>
+                                                        <button class="close">
+                                                            <a href="{% url "cart_remove" product.id %}"><i class="fa fa-times"></i></a>
+                                                        </button>
+                                                    </li>
+                                                    {% endwith %}
+                                                    {% empty %}
+                                                    <li>Pemesanan Masih Kosong</li>
+                                                    {% endfor %}
+
+                                                    
+                                                  
+
+                                                </ul>
+                                                <p class="minicart-total">SUBTOTAL: <span>Rp. {{ keranjang.get_total_price|intcomma }}</span></p>
+                                                <div class="minicart-button">
+                                                    <a href="{% url 'cart_detail' %}" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                                        <span>View Full Cart</span>
+                                                    </a>
+                                                    <a href="{% url 'checkout' %}" class="li-button li-button-fullwidth li-button-sm">
+                                                        <span>Checkout</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- Header Mini Cart Area End Here -->
+                                    </ul>
+                                </div>
+                                <!-- Header Middle Right Area End Here -->
+                            </div>
+                            <!-- Header Middle Right Area End Here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Middle Area End Here -->
+                <!-- Begin Header Bottom Area -->
+              <!-- Begin Header Bottom Area -->
+              {% include "navbar.html" %}
+            </header>
+            <!-- Header Area End Here -->
+            {% block content %}
+            
+            {% endblock content %}
+<!-- Begin Footer Area -->
+            <div class="footer">
+                
+                <!-- Begin Footer Static Middle Area -->
+                <div class="footer-static-middle">
+                    <div class="container">
+                        <div class="footer-logo-wrap pt-50 pb-35">
+                            <div class="row">
+                                <!-- Begin Footer Logo Area -->
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="footer-logo">
+                                        <img src="{% static 'assets/images/menu/logo/gambar.png' %}" alt="Footer Logo">
+                                        <p class="info text-justify">
+                                            Terima Kasih telah mengunjungi Website Kami dan Selamat Berbelanja. Kritik dan saran yang positif Silakan hubungi kami:
+                                        </p>
+                                    </div>
+                                   <ul class="des">
+                                    <li>
+                                            <span>Alamat: </span>
+                                         {{statis.alamat_kami}}
+                                        </li>
+                                        <li>
+                                            <span>Telpon: </span>
+                                            <a href="#">{{statis.telpon}}</a>
+                                        </li>
+                                        <li>
+                                            <span>Email: </span>
+                                            <a href="mailto://{{statis.email}}">{{statis.email}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Footer Logo Area End Here -->
+                                <!-- Begin Footer Block Area -->
+                                <div class="col-lg-2 col-md-3 col-sm-6">
+                                    <div class="footer-block">
+                                        <h3 class="footer-block-title">Produk</h3>
+                                        <ul>
+                                             {% for kt in kategori %}
+                                                        <li><a href="{% url 'kategori' kt.slug %}">{{kt.nama}}</a></li>
+                                                    {% empty %}
+                                                        <div class="alert alert-danger">Kategori Kosong</div>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Footer Block Area End Here -->
+                                <!-- Begin Footer Block Area -->
+                                <div class="col-lg-2 col-md-3 col-sm-6">
+                                    <div class="footer-block">
+                                        <h3 class="footer-block-title">Menu Kita</h3>
+                                        <ul>
+                                            <li><a href="{% url 'beranda' %}">Beranda</a></li>
+                                            <li><a href="{% url 'profil' %}">Profil</a></li>
+                                            <li><a href="{% url 'cart_detail' %}">Pemesanan</a></li>
+                                            <li><a href="{% url 'kontak' %}">Hubungi Kami</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Footer Block Area End Here -->
+                                <!-- Begin Footer Block Area -->
+                                <div class="col-lg-4">
+                                    <div class="footer-block">
+                                        <h3 class="footer-block-title">Follow Us</h3>
+                                        <ul class="social-link">
+                                            <li class="twitter">
+                                                <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="rss">
+                                                <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
+                                                    <i class="fa fa-rss"></i>
+                                                </a>
+                                            </li>
+                                            <li class="google-plus">
+                                                <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google +">
+                                                    <i class="fa fa-google-plus"></i>
+                                                </a>
+                                            </li>
+                                            <li class="facebook">
+                                                <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="youtube">
+                                                <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
+                                                    <i class="fa fa-youtube"></i>
+                                                </a>
+                                            </li>
+                                            <li class="instagram">
+                                                <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
+                                                    <i class="fa fa-instagram"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                  
+                                </div>
+                                <!-- Footer Block Area End Here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer Static Middle Area End Here -->
+              
+            </div>
+            <!-- Footer Area End Here -->
+            <!-- Begin Quick View | Modal Area -->
+            {% for mdp in modalproduk %}
+                 <div class="modal fade modal-wrapper" id="exampleModalCenter{{mdp.id}}" >
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="modal-inner-area row">
+                                <div class="col-lg-5 col-md-6 col-sm-6">
+                                   <!-- Product Details Left -->
+                                    <div class="product-details-left">
+                                        <div class="product-details-images slider-navigation-1">
+
+
+                                            <div class="lg-image">
+                                                <img src="{{mdp.gambar.url}}" alt="{{mdp.nama_produk}}">
+                                            </div>
+                                            
+                                            {% if mdp.gambar_satu %}
+                                            <div class="lg-image">
+                                                    <img src="{{mdp.gambar_satu.url}}" alt="{{mdp.nama_produk}}">
+                                                </a>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_dua %}
+                                            <div class="lg-image">
+                                                    <img src="{{mdp.gambar_dua.url}}" alt="{{mdp.nama_produk}}">
+                                                </a>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_tiga %}
+                                            <div class="lg-image">
+                                                    <img src="{{mdp.gambar_tiga.url}}" alt="{{mdp.nama_produk}}">
+                                                </a>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_empat %}
+                                            <div class="lg-image">
+                                                    <img src="{{mdp.gambar_empat.url}}" alt="{{mdp.nama_produk}}">
+                                                </a>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_lima %}
+                                            <div class="lg-image">
+                                                    <img src="{{mdp.gambar_lima.url}}" alt="{{mdp.nama_produk}}">
+                                                </a>
+                                            </div>
+                                            {% endif %}
+                                            
+                                           
+                                        </div>
+                                        <div class="product-details-thumbs slider-thumbs-1">                                        
+                                            
+                                            <div class="sm-image"><img src="{{mdp.gambar.url}}" alt="{{mdp.nama_produk}}"></div>
+                                            {% if mdp.gambar_satu %}
+                                                    <div class="sm-image"><img src="{{mdp.gambar_satu.url}}"alt="{{mdp.nama_produk}}"></div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_dua %}
+                                           <div class="sm-image"><img src="{{mdp.gambar_dua.url}}" alt="{{mdp.nama_produk}}"></div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_tiga %}
+                                                <div class="sm-image"><img src="{{mdp.gambar_tiga.url}}" alt="{{mdp.nama_produk}}"></div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_empat %}
+                                                <div class="sm-image"><img src="{{mdp.gambar_empat.url}}" alt="{{mdp.nama_produk}}"></div>
+                                            {% endif %}
+
+                                            {% if mdp.gambar_lima %}
+                                                <div class="sm-image"><img src="{{mdp.gambar_lima.url}}" aalt="{{mdp.nama_produk}}"></div>
+                                            {% endif %}
+                                    
+                                       
+                                       
+                                        </div>
+                                    </div>
+                                    <!--// Product Details Left -->
+                                </div>
+
+                                <div class="col-lg-7 col-md-6 col-sm-6">
+                                    <div class="product-details-view-content pt-60">
+                                        <div class="product-info">
+                                            <h2>{{mdp.nama_produk}}</h2>
+                                            
+                                             {% if mdp.diskon == 0 %}
+                                                <div class="price-box pt-20">
+                                                    <span class="new-price new-price-2">Rp. {{mdp.harga|intcomma}}</span>
+                                                </div>
+                                        {% else %}
+                                                <span class="old-price"><s>Rp. {{mdp.harga|intcomma}}</s></span>
+                                                Diskon <span class="discount-percentage">{{mdp.diskon}}%</span>
+                                                <div class="price-box pt-20">
+                                                    <span class="new-price new-price-2">Rp. {{mdp.setela_diskon|intcomma}}</span>
+                                                </div>
+                                        {% endif %}
+                                      
+                                            <div class="product-desc">
+                                                <div class="text-justify">
+                                                    <span>{{mdp.keterangan|safe}} </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="single-add-to-cart"> 
+                                                <form action="{% url "cart_add" mdp.id %}" method="post" class="cart-quantity">
+                                                {% csrf_token %}
+                                                    <div class="quantity">
+                                                            <label>Quantity</label>
+                                                            <div class="cart-plus-minus">
+                                                                <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                            </div>
+                                                        </div> 
+                                                        
+                                                        
+                                                            {{ cart_product_form }}
+                                                        
+                                                        <button class="add-to-cart" type="submit">Tambah cart</button>
+                                                    </form>
+                                            </div>
+                                            <div class="product-additional-info pt-25">
+                                                <a class="wishlist-btn" href="https://api.whatsapp.com/send?phone={{mdp.no_whatsup}}&text=Saya%20ingin%20pemesan%20product%20{{mdp.nama_produk}}%20apakah%20tersedia%20?%20" target="_blank"><i class="fa fa-whatsapp"></i>Beli Melalui WA</a>
+                                                <div class="product-social-sharing pt-25">
+                                                    <ul>
+                                                        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+                                                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                                                        <li class="telegram"><a href="#"><i class="fa fa-telegram"></i>Telegram</a></li>
+                                                        <li class="whatsapp"><a href="#"><i class="fa fa-whatsapp"></i>Whatsapp</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            {% endfor %}
+           
+            <!-- Quick View | Modal Area End Here -->
+        </div>
+        <!-- Body Wrapper End Here -->
+        <!-- jQuery-V1.12.4 -->
+        <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+        <!-- Popper js -->
+        <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+        <!-- Bootstrap V4.1.3 Fremwork js -->
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <!-- Ajax Mail js -->
+        <script src="{% static 'assets/js/ajax-mail.js' %}"></script>
+        <!-- Meanmenu js -->
+        <script src="{% static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+        <!-- Wow.min js -->
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <!-- Slick Carousel js -->
+        <script src="{% static 'assets/js/slick.min.js' %}"></script>
+        <!-- Owl Carousel-2 js -->
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <!-- Magnific popup js -->
+        <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+        <!-- Isotope js -->
+        <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+        <!-- Imagesloaded js -->
+        <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+        <!-- Mixitup js -->
+        <script src="{% static 'assets/js/jquery.mixitup.min.js' %}"></script>
+        <!-- Countdown -->
+        <script src="{% static 'assets/js/jquery.countdown.min.js' %}"></script>
+        <!-- Counterup -->
+        <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+        <!-- Waypoints -->
+        <script src="{% static 'assets/js/waypoints.min.js' %}"></script>
+        <!-- Barrating -->
+        <script src="{% static 'assets/js/jquery.barrating.min.js' %}"></script>
+        <!-- Jquery-ui -->
+        <script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+        <!-- Venobox -->
+        <script src="{% static 'assets/js/venobox.min.js' %}"></script>
+        <!-- Nice Select js -->
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <!-- ScrollUp js -->
+        <script src="{% static 'assets/js/scrollUp.min.js' %}"></script>
+        <!-- Main/Activator js -->
+        <script src="{% static 'assets/js/main.js' %}"></script>
+    </body>
+
+<!-- index30:23-->
+</html>
